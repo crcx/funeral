@@ -1,0 +1,2 @@
+#!/bin/sh
+cat $1 | sed -f ../tools/fix.sed | less

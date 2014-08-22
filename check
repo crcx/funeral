@@ -1,0 +1,6 @@
+#! /bin/sh
+  for dir in epub/*
+  do
+   echo $dir
+   java -jar ../z/epubcheck-1.0.5.jar $dir
+  done;

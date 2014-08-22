@@ -1,0 +1,14 @@
+funeral - ePub Generator
+-----------------------------------------------------------
+Requirements:
+
+  - PHP 5
+  - HTML Tidy
+  - Make
+  - Bash
+  - InfoZIP
+
+1) Store your file as source.xhtml
+2) It must be XHTML 1.1 compliant - validate first
+3) H1 and H2 tags will be chapter headers/breaks
+-----------------------------------------------------------

@@ -1,0 +1,6 @@
+#! /bin/sh
+
+for dir in text/*
+do
+ sh ../tools/asciify $dir
+done;

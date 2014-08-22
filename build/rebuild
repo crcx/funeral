@@ -1,0 +1,7 @@
+#! /bin/sh
+cd book/OEBPS
+for xhtml in ./*.xhtml
+do
+  tidy -asxml $xhtml >q 2>/dev/null
+  mv q $xhtml
+done;

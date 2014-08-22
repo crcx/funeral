@@ -1,0 +1,74 @@
+#! /bin/sh
+
+if [ "$1" = "html" ]
+then
+  echo "ReST to HTML"
+  for dir in text/*
+  do
+    for filename in $dir/*.txt
+    do
+      echo $filename
+      rst2html.py --stylesheet=alexandria.css $filename html/`basename $filename | sed 's/txt/html/'`
+    done;
+  done;
+fi
+
+if [ "$1" = "epub" ]
+then
+  echo HTML to ePub...
+  rm epub/*
+  cd build
+  ln -s ../html/images
+  cd ..
+  for filename in html/*.html
+  do
+   echo $filename
+   cd html
+     cp `basename $filename` ../build/source.xhtml
+   cd ../build
+     make
+     mv book.epub ../epub/`basename $filename | sed 's/html/epub/'`
+   cd ..
+  done;
+  cd build
+  rm -rf images
+  cd ..
+fi
+
+if [ "$1" = "calibre" ]
+then
+  echo HTML to ePub...
+  rm epub/*
+  cd calibre
+  ln -s ../html/images
+  cd ..
+  for filename in html/*.html
+  do
+   echo $filename
+   cd html
+     cp `basename $filename` ../calibre/source.html
+   cd ../calibre
+     ebook-convert source.html book.fb2
+   cd ..
+  done;
+  cd calibre
+  rm -rf images
+  cd ..
+fi
+
+
+if [ "$1" = "azw" ]
+then
+  echo ePub to azw...
+  rm kindle/*
+  for filename in epub/*.epub
+  do
+   echo $filename
+   cd epub
+     cp `basename $filename` ../kindlegen/source.epub
+   cd ../kindlegen
+     ~/kindlegen source.epub -o book.kindle
+     mv book.kindle ../azw/`basename $filename | sed 's/epub/azw/'`
+   cd ..
+  done;
+fi
